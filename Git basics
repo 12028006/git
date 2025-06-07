@@ -1,0 +1,144 @@
+//Checks the installed Git version. Good for verifying installation.
+git --version
+//Sets your name for all future commits on your machine
+git config --global user.name "Your Name"
+
+//sets your email for all future commits
+git config --global user.email "your.email@example.com"
+
+//initilaizes a new git repository in the current directory this creates the hidden .git folder
+git init
+
+//Downloads an existing Git repository from a remote server (like GitHub, GitLab, Bitbucket) to your local machine
+git clone <repository-url>
+
+//Shows the current state of your working directory, including modified, staged, and untracked files. This is your most frequent command
+git status
+
+//Adds all changes (modified and new files) in the current directory and its subdirectories to the staging area.
+git add .
+
+//adds a specific files's changes to the staging area
+git add <file-name>
+
+//Saves the staged changes to your local repository history. The -m flag allows you to add a message directly.
+git commit -m "Your descriptive commit message"
+
+// Opens your configured text editor (like Vim) to write a more detailed commit message. (Press Esc, then :wq to save and quit in Vim).
+git commit
+
+//Shows the differences between your working directory and the staging area (changes not yet staged)
+git diff
+
+//Shows the differences between the staging area and the last committed version (changes that are staged).
+git diff --staged
+
+//shows the commit history. Press q to quit
+git log
+
+Undoing Changes & Recovering History
+
+git reset <file-name>
+//Unstages a file, moving it from the staging area back to the working directory (keeping your changes).
+
+git reset --hard <commit-hash>
+//DANGEROUS! Discards all local changes in your working directory and staging area, reverting to the state of the specified commit. Use with extreme caution, especially on shared branches.
+
+
+git restore <file-name>
+//(Newer Git versions) Discards changes in your working directory for a specific file, restoring it to the last committed version.
+
+git restore --source=HEAD --staged <file-name>
+//(Newer Git versions) Unstages a file. Similar to git reset <file-name>.
+
+git revert <commit-hash>
+//Creates a new commit that undoes the changes introduced by a previous commit. This is safer than git reset on shared branches as it doesn't rewrite history.
+
+git clean -n
+//Shows what untracked files would be removed.
+
+git clean -f
+//DANGEROUS! Removes untracked files from your working directory.
+
+git reflog
+//Shows a history of all actions performed in your local repository (even resets, merges, etc.), allowing you to recover lost commits.
+
+git branch
+//Lists all local branches.
+
+git branch <new-branch-name>
+//Creates a new branch.
+
+
+git branch -d <branch-name> 
+//Deletes a local branch (only if it's merged).
+
+git branch -D <branch-name>
+//DANGEROUS! Force deletes a local branch (even if unmerged changes exist).
+
+git checkout <branch-name>
+//Switches to an existing branch. (Older method, still widely used).
+
+git switch <branch-name>
+//(Newer Git versions) Switches to an existing branch. Recommended for clarity.
+
+git checkout -b <new-branch-name>
+//Creates a new branch and immediately switches to it. (Older method).
+
+git switch -c <new-branch-name>
+//(Newer Git versions) Creates a new branch and immediately switches to it. Recommended.
+
+git merge <branch-to-merge-in>: 
+//Integrates changes from the specified branch into your current branch.
+
+git merge --abort
+//Aborts a merge in case of conflicts.
+
+git rebase <base-branch>
+// Reapplies your branch's commits on top of another branch's history, creating a cleaner, linear history. Use with caution on shared branches after they've been pushed.
+
+git cherry-pick <commit-hash>
+//Applies a specific commit from one branch onto another.
+
+git remote -v
+//Lists all remote repositories and their URLs.
+
+git remote add origin <remote-url>
+//Adds a new remote repository, typically named origin.
+
+git fetch <remote-name>
+// Downloads changes from the remote repository but doesn't integrate them into your local branches.
+
+git pull
+// Fetches changes from the remote and immediately merges them into your current local branch. (Equivalent to git fetch followed by git merge).
+
+git pull --rebase  
+//Fetches changes and then rebases your local commits on top of the remote changes, leading to a cleaner history. Often preferred over plain git pull.
+
+git push <remote-name> <branch-name> 
+//Uploads your local commits to the remote repository.
+
+git push -u origin <branch-name>
+//Sets the upstream (tracking) branch for your local branch, so future git push and git pull commands don't need to specify origin and the branch name.
+
+git push --force
+//DANGEROUS! Overwrites the remote branch's history with your local history. Only use if you understand the implications and have communicated with your team.
+
+git push --delete <remote-name> <branch-name>
+//Deletes a branch on the remote repository.
+
+
+git stash
+//Temporarily saves uncommitted changes (both staged and unstaged) in a "stash" so you can switch branches or work on something else.
+git stash list: Shows all stashed changes.
+
+git stash pop
+//Applies the most recently stashed changes and removes them from the stash.
+git stash apply: Applies the most recently stashed changes but keeps them in the stash.
+
+git tag -a <tag-name> -m "Tag message"
+//Creates an annotated (recommended) tag at the current commit, often used for releases.
+
+git push origin --tags
+//Pushes all local tags to the remote repository.
+
